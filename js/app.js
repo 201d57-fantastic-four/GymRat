@@ -1,22 +1,23 @@
 'use strict';
-
+var globalUsername = '';
 //creating excercise array for new user
+// eslint-disable-next-line no-unused-vars
 function makeNewUser(username) {
-  var excercise = {
-    excerciseType: 'run',
-    draw: 'cardio-mph-distance',
-    historicalData: [],
-
-  };
+  let excercise = new ExerciseObject('run', 'cardio-mph-distance', []);
   //saving array to local storage
-  localStorage.setItem(username, JSON.stringify(excercise));
+  //TODO: Split this off into its own function in Storage.js
+  let workingArray = [];
+  workingArray.push(excercise);
+  localStorage.setItem(username, JSON.stringify(workingArray));
+  // eslint-disable-next-line no-undef
+  return lookupUser(username);
 }
 
 var cardBox = document.getElementById('card-box');
 
-var drawCard = function(exerciseObject, parentEl, uNumber){
+var drawCard = function (exerciseObject, parentEl, uNumber) {
   //make card
-  let card =document.createElement('section');
+  let card = document.createElement('section');
   card.classList += 'card';
   //make title
   let title = document.createElement('h2');
@@ -27,8 +28,8 @@ var drawCard = function(exerciseObject, parentEl, uNumber){
   let addExerciseTypeForm = document.createElement('form');
   addExerciseTypeForm.id = uNumber;
 
-  let distance= document.createElement('input');
-  distance.type= 'number';
+  let distance = document.createElement('input');
+  distance.type = 'number';
   distance.className = 'distance-input';
 
   let time = document.createElement('input');
@@ -37,12 +38,13 @@ var drawCard = function(exerciseObject, parentEl, uNumber){
   let subButton = document.createElement('button');
   subButton.innerText = 'Add todays result';
   subButton.id = `sub-button-${uNumber}`;
-  subButton.type= 'submit';
+  subButton.type = 'submit';
   //TODO: add event listener to form submit
 
   addExerciseTypeForm.appendChild(distance);
   addExerciseTypeForm.appendChild(time);
   addExerciseTypeForm.appendChild(subButton);
+
   card.appendChild(addExerciseTypeForm);
   let holder = document.createElement('section');
   holder.class = 'chart-box';
@@ -60,23 +62,35 @@ var drawCard = function(exerciseObject, parentEl, uNumber){
 };
 
 function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', historicalData = []) {
-  this. exerciseType = exerciseType;
+  this.exerciseType = exerciseType;
   this.historicalData = historicalData;
   this.chartType = chartType;
 }
-drawCard(new ExerciseObject('run', 'cardio-mph-distance', [6,8,12,14,15,18]), cardBox, 0);
 
 var nameForm = document.getElementById('name');
 
-var handleFormSubmitName = function(event) {
+var handleFormSubmitName = function (event) {
   event.preventDefault();
 
   var name = event.target.name.value;
-
-  console.log('Name: ', name);
+  globalUsername = name;
+  // eslint-disable-next-line no-undef
+  let user = lookupUser(globalUsername);
+  show(user);
 
   // Reset the form to empty
   nameForm.reset();
 };
 
-nameForm.addEventListener('submit', handleFormSubmitName);
+function show(arr) {
+  let i = 0;
+  do {
+    drawCard(arr[i], cardBox, i);
+    i++;
+  } while (i < arr.length);
+
+}
+
+nameForm.addEventListener('submit', (e) => {
+  handleFormSubmitName(e);
+});
