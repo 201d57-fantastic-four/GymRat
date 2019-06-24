@@ -67,16 +67,20 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
   this.chartType = chartType;
 }
 
+// Get form element
 var nameForm = document.getElementById('name');
 
-var handleFormSubmitName = function (event) {
-  event.preventDefault();
+// Form submit handler - Who are you?
+var handleFormSubmitName = function(event) {
 
+  event.preventDefault();
+  // Save input value
   var name = event.target.name.value;
   globalUsername = name;
   // eslint-disable-next-line no-undef
   let user = lookupUser(globalUsername);
   show(user);
+
 
   // Reset the form to empty
   nameForm.reset();
