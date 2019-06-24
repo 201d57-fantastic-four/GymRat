@@ -1,8 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
-    console.log(historicalData);
-    console.log(chartbox);
     //TODO: implement this/draw chart.
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
