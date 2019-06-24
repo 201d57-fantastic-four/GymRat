@@ -23,7 +23,7 @@ A simple web application that keeps tracks of users cardio workout & displays it
 ## Authors
 * **Melfi Perez** 
 * **Steven Grant** 
-* **Jochen Busch** 
+* **Joachen Busch** 
 * **Matt Stuhring** 
 
 ## Versioning
