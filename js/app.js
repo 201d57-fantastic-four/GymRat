@@ -66,17 +66,22 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 }
 drawCard(new ExerciseObject('run', 'cardio-mph-distance', [6,8,12,14,15,18]), cardBox, 0);
 
+// Get form element
 var nameForm = document.getElementById('name');
 
+// Form submit handler - Who are you?
 var handleFormSubmitName = function(event) {
   event.preventDefault();
-
+  // Save input value
   var name = event.target.name.value;
+  console.log('Name: ', name); // log to console for debugging
 
-  console.log('Name: ', name);
+  // Check if user exists
+  lookupUser(name);
 
   // Reset the form to empty
   nameForm.reset();
 };
 
+// Add event listener the "Who are you?" form
 nameForm.addEventListener('submit', handleFormSubmitName);
