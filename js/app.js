@@ -47,7 +47,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
 
   card.appendChild(addExerciseTypeForm);
   let holder = document.createElement('section');
-  holder.class = 'chart-box';
+  holder.className = 'chart-box';
   let chartBox = document.createElement('canvas');
   let chartId = `chart-${uNumber}`;
   chartBox.width = '400';
