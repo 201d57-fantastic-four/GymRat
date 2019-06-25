@@ -1,6 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
+    let distanceArr = [];
+    let mphArr = [];
+    historicalData.forEach(element => {
+      distanceArr.push(element.distance);
+      mphArr.push(element.mph);
+    });
     //TODO: implement this/draw chart.
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
@@ -9,7 +15,7 @@ var charts = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
           label: 'Filler Data',
-          data: historicalData,
+          data: distanceArr,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
