@@ -140,9 +140,12 @@ var handleFormSubmitName = function (event) {
   let user = lookupUser(globalUsername);
   show(user);
 
-
   // Reset the form to empty
   nameForm.reset();
+  
+  //Hides card
+  var hideCardOnSubmit = document.querySelector('#name');
+  hideCardOnSubmit.style.display = 'none';
 };
 
 function show(arr) {
