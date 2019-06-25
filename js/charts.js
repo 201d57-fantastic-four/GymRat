@@ -12,9 +12,9 @@ var charts = {
     var myChart = new Chart(chartelem, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['', '', '', '', '', '', ''],
         datasets: [{
-          label: 'Filler Data',
+          label: 'Distance',
           data: distanceArr,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -34,7 +34,7 @@ var charts = {
           ],
           borderWidth: 1,
         },{
-          label: 'Line Data',
+          label: 'MPH',
           data: mphArr,
           type: 'line'
         }]
@@ -43,6 +43,9 @@ var charts = {
         scales: {
           yAxes: [{
             ticks: {
+              max: 25,
+              min : 0,
+              stepSize: 5,
               beginAtZero: true
             }
           }]
