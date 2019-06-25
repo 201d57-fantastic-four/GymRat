@@ -61,10 +61,33 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   parentEl.appendChild(card);
 };
 
+//Exercise Object Constructor
 function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', historicalData = []) {
   this.exerciseType = exerciseType;
   this.historicalData = historicalData;
   this.chartType = chartType;
+}
+
+debugger;
+//DailyCardio Constructor 
+function DailyCardioExercise(duration, distance){
+  this.duration = duration;
+  this.distance = distance; 
+
+  DailyCardioExercise.historicalData.push(this);
+
+  calculateAvgDistance();
+}
+
+//Calculates AvgDistance
+DailyCardioExercise.prototype.calculateAvgDistance = function(duration, distance){
+  var avgDistance = Math.ceil(duration/distance);
+
+  this.historicalData.push(avgDistance);
+
+  localStorage.setItem(avgDistance, JSON.stringify(historicalData));
+ 
+  return avgDistance
 }
 
 // Get form element
