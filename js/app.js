@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 var globalUsername = '';
 //creating excercise array for new user
@@ -54,15 +55,23 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   subButton.type = 'submit';
 
   // Event handler - Distance, hours, minutes
-  addExerciseTypeForm.addEventListener('submit', function(event) {
+  addExerciseTypeForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    let runDistance = event.target.distance.value;
-    let runHours = event.target.hours.value;
-    let runMinutes = event.target.minutes.value;
-
-    console.log('Distance: ', runDistance);
-    console.log('Hours: ', runHours);
-    console.log('Minutes: ', runMinutes);
+    //TODO:Split this off into a fn that has the logic to generate the correct exercise element
+    let runDistance = parseInt(event.target.distance.value);
+    let runHours = parseInt(event.target.hours.value);
+    // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
+    let runMinutes = (parseInt(event.target.minutes.value) / .6) * 0.01;
+    let runTime = runHours + runMinutes;
+    let index = parseInt(event.target.id);
+    //NEW EX EL res of new fn
+    let newExEl = new CardioElement(runTime, runDistance);
+    //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
+    let userData = lookupUser(globalUsername);
+    userData[index].historicalData.push(newExEl);
+    saveUpdatedUserInfo(globalUsername, userData);
+    cardBox.innerHTML = '';
+    show(lookupUser(globalUsername));
   });
 
   addExerciseTypeForm.appendChild(labelDistance);
@@ -91,38 +100,27 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
 };
 
 //Exercise Object Constructor
+// eslint-disable-next-line no-unused-vars
 function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', historicalData = []) {
   this.exerciseType = exerciseType;
   this.historicalData = historicalData;
   this.chartType = chartType;
 }
 
-//DailyCardio Constructor 
-function DailyCardioExercise(duration, distance){
+//DailyCardio Constructor
+function CardioElement(duration, distance) {
+  //TODO: Fix magic strings
   this.duration = duration;
-  this.distance = distance; 
-
-  DailyCardioExercise.historicalData.push(this);
-
-  calculateAvgDistance();
-}
-
-//Calculates AvgDistance
-DailyCardioExercise.prototype.calculateAvgDistance = function(duration, distance){
-  var avgDistance = Math.ceil(duration/distance);
-
-  this.historicalData.push(avgDistance);
-
-  localStorage.setItem(avgDistance, JSON.stringify(historicalData));
- 
-  return avgDistance
+  this.distance = distance;
+  this.mph = this.distance / this.duration;
+  //update form
 }
 
 // Get form element
 var nameForm = document.getElementById('name');
 
 // Form submit handler - Who are you?
-var handleFormSubmitName = function(event) {
+var handleFormSubmitName = function (event) {
 
   event.preventDefault();
   // Save input value

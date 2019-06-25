@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 'use strict';
 
 //Looks up if user exists and get exercise data from localStorage
@@ -21,4 +23,7 @@ function makeNewUser(username) {
   localStorage.setItem(username, JSON.stringify(workingArray));
   // eslint-disable-next-line no-undef
   return lookupUser(username);
+}
+function saveUpdatedUserInfo(username,data){
+  localStorage.setItem(username, JSON.stringify(data));
 }
