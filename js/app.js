@@ -87,6 +87,7 @@ var handleFormSubmitName = function(event) {
 };
 
 function show(arr) {
+  cardBox.innerHTML = '';
   let i = 0;
   do {
     drawCard(arr[i], cardBox, i);
