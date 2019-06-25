@@ -97,7 +97,6 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
   this.chartType = chartType;
 }
 
-debugger;
 //DailyCardio Constructor 
 function DailyCardioExercise(duration, distance){
   this.duration = duration;
