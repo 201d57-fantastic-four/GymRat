@@ -7,6 +7,13 @@ var charts = {
       distanceArr.push(element.distance);
       mphArr.push(element.mph);
     });
+    if(mphArr.length > 7){
+      do {
+        distanceArr.shift();
+        mphArr.shift();
+      // eslint-disable-next-line semi
+      } while (mphArr.length > 7)
+    }
     //TODO: implement this/draw chart.
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
