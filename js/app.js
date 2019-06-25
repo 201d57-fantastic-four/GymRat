@@ -20,19 +20,58 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
 
   let distance = document.createElement('input');
   distance.type = 'number';
+  distance.name = 'distance';
+  distance.placeholder = 'Enter distance in miles';
   distance.className = 'distance-input';
+  distance.step = '.1';
 
-  let time = document.createElement('input');
-  time.type = 'time';
+  var labelDistance = document.createElement('label');
+  labelDistance.htmlFor = distance;
+  labelDistance.textContent = 'Distance';
+
+  let duration = document.createElement('h3');
+  duration.textContent = 'Duration';
+
+  let hours = document.createElement('input');
+  hours.type = 'number';
+  hours.name = 'hours';
+
+  var labelhours = document.createElement('label');
+  labelhours.htmlFor = hours;
+  labelhours.textContent = 'Hours';
+
+  let minutes = document.createElement('input');
+  minutes.type = 'number';
+  minutes.name = 'minutes';
+
+  var labelminutes = document.createElement('label');
+  labelminutes.htmlFor = minutes;
+  labelminutes.textContent = 'Minutes';
 
   let subButton = document.createElement('button');
-  subButton.innerText = 'Add todays result';
+  subButton.innerText = 'Add today\'s result';
   subButton.id = `sub-button-${uNumber}`;
   subButton.type = 'submit';
-  //TODO: add event listener to form submit
 
+  // Event handler - Distance, hours, minutes
+  addExerciseTypeForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    let runDistance = event.target.distance.value;
+    let runHours = event.target.hours.value;
+    let runMinutes = event.target.minutes.value;
+
+    console.log('Distance: ', runDistance);
+    console.log('Hours: ', runHours);
+    console.log('Minutes: ', runMinutes);
+  });
+
+  addExerciseTypeForm.appendChild(labelDistance);
   addExerciseTypeForm.appendChild(distance);
-  addExerciseTypeForm.appendChild(time);
+  addExerciseTypeForm.appendChild(duration);
+  addExerciseTypeForm.appendChild(labelhours);
+  addExerciseTypeForm.appendChild(hours);
+  addExerciseTypeForm.appendChild(labelminutes);
+  addExerciseTypeForm.appendChild(minutes);
   addExerciseTypeForm.appendChild(subButton);
 
   card.appendChild(addExerciseTypeForm);
