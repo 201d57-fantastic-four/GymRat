@@ -49,19 +49,45 @@
   margin: auto;
 }
 
+.card form label {
+  margin-right: 5px;
+}
+
 .card h2 {
   font-size: 25px;
-  margin-left: 152px;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-.card label {
-  font-size: 25px;
+.card h3 {
+  font-size: 20px;
 }
 
-.card input {
+.card form label:first-child {
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.card form input.distance-input {
   width: 100%;
   height: 30px;
   font-size: 15px;
+}
+
+.card form input.distance-input {
+  width: 97%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.card form input[name=hours], .card form input[name=minutes] {
+  width: 30%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.card form input[name=hours] {
+  margin-right: 40px;
 }
 
 .card input {
@@ -70,15 +96,14 @@
 }
 
 .card button {
-  text-align: left;
-  background-color: green;
-  color: white;
   float: right;
   text-align: left;
   background-color: green;
   color: white;
   padding: 7px 20px;
   font-size: 15px;
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 .chart-box {

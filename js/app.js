@@ -11,7 +11,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   card.classList += 'card';
   //make title
   let title = document.createElement('h2');
-  title.innerText = exerciseObject.exerciseType;
+  title.innerText = 'Do you have any new exercises to track?';
   //append
   card.appendChild(title);
   //form
