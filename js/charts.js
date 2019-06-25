@@ -32,7 +32,11 @@ var charts = {
             'rgba(153, 102, 255, 1)',
             'rgba(255, 159, 64, 1)'
           ],
-          borderWidth: 1
+          borderWidth: 1,
+        },{
+          label: 'Line Data',
+          data: [1.0, 1.0, 1.0, 1.0],
+          type: 'line'
         }]
       },
       options: {
