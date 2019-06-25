@@ -29,36 +29,49 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   let addExerciseTypeForm = document.createElement('form');
   addExerciseTypeForm.id = uNumber;
 
+  // input - distance
   let distance = document.createElement('input');
+  distance.required = true;
   distance.type = 'number';
   distance.name = 'distance';
   distance.placeholder = 'Enter distance in miles';
   distance.className = 'distance-input';
   distance.step = '.1';
 
+  // label - distance
   var labelDistance = document.createElement('label');
   labelDistance.htmlFor = distance;
   labelDistance.textContent = 'Distance';
 
+  // title - duration
   let duration = document.createElement('h3');
   duration.textContent = 'Duration';
 
+  // input - hours
   let hours = document.createElement('input');
+  hours.required = true;
   hours.type = 'number';
   hours.name = 'hours';
+  hours.value = 0;
 
+  // label - hours
   var labelhours = document.createElement('label');
   labelhours.htmlFor = hours;
   labelhours.textContent = 'Hours';
 
+  // input - minutes
   let minutes = document.createElement('input');
+  minutes.required = true;
   minutes.type = 'number';
   minutes.name = 'minutes';
+  minutes.value = 0;
 
+  // label - minutes
   var labelminutes = document.createElement('label');
   labelminutes.htmlFor = minutes;
   labelminutes.textContent = 'Minutes';
 
+  // button
   let subButton = document.createElement('button');
   subButton.innerText = 'Add today\'s result';
   subButton.id = `sub-button-${uNumber}`;
