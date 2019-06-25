@@ -1,7 +1,17 @@
 'use strict';
 var globalUsername = '';
 //creating excercise array for new user
-
+// eslint-disable-next-line no-unused-vars
+function makeNewUser(username) {
+  let excercise = new ExerciseObject('run', 'cardio-mph-distance', []);
+  //saving array to local storage
+  //TODO: Split this off into its own function in Storage.js
+  let workingArray = [];
+  workingArray.push(excercise);
+  localStorage.setItem(username, JSON.stringify(workingArray));
+  // eslint-disable-next-line no-undef
+  return lookupUser(username);
+}
 
 var cardBox = document.getElementById('card-box');
 
