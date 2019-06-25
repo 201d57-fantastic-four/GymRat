@@ -35,7 +35,7 @@ var charts = {
           borderWidth: 1,
         },{
           label: 'Line Data',
-          data: [1.0, 1.0, 1.0, 1.0],
+          data: mphArr,
           type: 'line'
         }]
       },
