@@ -107,7 +107,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   card.classList += 'card';
   //make title
   let title = document.createElement('h2');
-  title.innerText = 'Do you have any new exercises to track?';
+  title.innerText = 'New exercise to track?';
   //append
   card.appendChild(title);
   let addExerciseTypeForm = makeForm(exerciseObject.chartType,uNumber);
@@ -163,7 +163,7 @@ var handleFormSubmitName = function (event) {
   nameForm.reset();
 
   //Hides card
-  var hideCardOnSubmit = document.querySelector('#name');
+  var hideCardOnSubmit = document.querySelector('#signin');
   hideCardOnSubmit.style.display = 'none';
 };
 

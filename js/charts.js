@@ -50,9 +50,9 @@ var charts = {
         scales: {
           yAxes: [{
             ticks: {
-              max: 25,
+              max: 7,
               min : 0,
-              stepSize: 5,
+              stepSize: 1,
               beginAtZero: true
             }
           }]
