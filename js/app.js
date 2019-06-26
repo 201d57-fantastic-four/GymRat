@@ -16,6 +16,8 @@ function makeForm(key, uNumber) {
     distance.placeholder = 'Enter distance in miles';
     distance.className = 'distance-input';
     distance.step = '.1';
+    distance.min = .1;
+    distance.max = 50;
 
     // label - distance
     var labelDistance = document.createElement('label');
@@ -32,6 +34,7 @@ function makeForm(key, uNumber) {
     hours.type = 'number';
     hours.name = 'hours';
     hours.value = 0;
+    hours.min = 0;
 
     // label - hours
     var labelhours = document.createElement('label');
@@ -44,6 +47,8 @@ function makeForm(key, uNumber) {
     minutes.type = 'number';
     minutes.name = 'minutes';
     minutes.value = 0;
+    minutes.min = 0;
+    minutes.max = 59;
 
     // label - minutes
     var labelminutes = document.createElement('label');
