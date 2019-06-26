@@ -81,11 +81,11 @@ function makeForm(key, uNumber) {
       //NEW EX EL res of new fn
       let newExEl = new CardioElement(runTime, runDistance);
       //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
-      let userData = lookupUser(globalUsername);
+      let userData = lookupUser(getGlobalUsername());
       userData[index].historicalData.push(newExEl);
-      saveUpdatedUserInfo(globalUsername, userData);
+      saveUpdatedUserInfo(getGlobalUsername(), userData);
       cardBox.innerHTML = '';
-      show(lookupUser(globalUsername));
+      show(lookupUser(getGlobalUsername()));
     });
 
     form.appendChild(labelDistance);
@@ -150,13 +150,14 @@ var nameForm = document.getElementById('name');
 
 // Form submit handler - Who are you?
 var handleFormSubmitName = function (event) {
-
   event.preventDefault();
   // Save input value
   var name = event.target.name.value;
-  globalUsername = name;
+
+  localStorage.setItem('globalUsername', JSON.stringify(name));
+
   // eslint-disable-next-line no-undef
-  let user = lookupUser(globalUsername);
+  let user = lookupUser(getGlobalUsername());
   show(user);
 
   // Reset the form to empty
@@ -165,6 +166,9 @@ var handleFormSubmitName = function (event) {
   //Hides card
   var hideCardOnSubmit = document.querySelector('#signin');
   hideCardOnSubmit.style.display = 'none';
+
+  var loginLink = document.getElementById('login');
+  loginLink.textContent = 'Logout';
 };
 
 function show(arr) {
@@ -180,3 +184,42 @@ function show(arr) {
 nameForm.addEventListener('submit', (e) => {
   handleFormSubmitName(e);
 });
+
+// Select the Login link in the header
+var loginLink = document.getElementById('login');
+
+// Add click event listener and check whether to change it from Logout to Login
+// Set the global username from localstorage to null
+// Reload the page
+loginLink.addEventListener('click', function() {
+  if (loginLink.textContent === 'Logout') {
+    loginLink.textContent = 'Login';
+  }
+
+  localStorage.setItem('globalUsername', null);
+  location.reload();
+});
+
+
+// Get global username from localstorage
+function getGlobalUsername() {
+  return JSON.parse(localStorage.getItem('globalUsername'));
+}
+
+// Initial App check if global username exits
+function initApp() {
+  var globalUsername = getGlobalUsername();
+
+  if (globalUsername) {
+    // Look up the global user from localstorage and show user data
+    show(lookupUser(globalUsername));
+    //Hides card
+    var hideCardOnSubmit = document.querySelector('#signin');
+    hideCardOnSubmit.style.display = 'none';
+
+    // if global username exists display Logout
+    loginLink.textContent = 'Logout';
+  }
+}
+
+initApp();
