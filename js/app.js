@@ -70,7 +70,9 @@ function makeForm(key, uNumber) {
       //NEW EX EL res of new fn
       let newExEl = new CardioElement(runTime, runDistance);
       //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
-      let userData = lookupUser(getGlobalUsername());
+      let usejlfsdjklsdf = getGlobalUsername();
+      let userData = lookupUser(usejlfsdjklsdf);
+      debugger;
       userData[index].historicalData.push(newExEl);
       saveUpdatedUserInfo(getGlobalUsername(), userData);
       cardBox.innerHTML = '';
@@ -138,10 +140,10 @@ function generateTrackNewEx() {
       e.preventDefault();
       exName = e.target[0].value;
       exChart = keys[dropDown.selectedIndex];
-      let userData = lookupUser(globalUsername);
+      let userData = lookupUser(getGlobalUsername());
       userData.push(new ExerciseObject(exName,exChart, []));
-      saveUpdatedUserInfo(globalUsername,userData);
-      show(lookupUser(globalUsername));
+      saveUpdatedUserInfo(getGlobalUsername(),userData);
+      show(lookupUser(getGlobalUsername()));
     });
     form.appendChild(subButton);
     card.appendChild(form);
