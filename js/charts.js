@@ -1,12 +1,19 @@
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
+    console.log(historicalData);
     let distanceArr = [];
     let mphArr = [];
+    let durationArr = [];
+    let day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    let durationColor = 'rgba(75, 192, 192, 0.3)';
+    let mphColor = 'rgba(153, 102, 255, 0.2)';
     historicalData.forEach(element => {
       distanceArr.push(element.distance);
       mphArr.push(element.mph);
+      durationArr.push(element.duration);
     });
+    console.log(durationArr);
     if(mphArr.length > 7){
       do {
         distanceArr.shift();
@@ -19,9 +26,9 @@ var charts = {
     var myChart = new Chart(chartelem, {
       type: 'bar',
       data: {
-        labels: ['', '', '', '', '', '', ''],
+        labels: day,
         datasets: [{
-          label: 'Distance',
+          label: ['Distance'],
           data: distanceArr,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -43,16 +50,26 @@ var charts = {
         },{
           label: 'MPH',
           data: mphArr,
-          type: 'line'
+          type: 'line',
+          backgroundColor: mphColor,
+          borderColor: mphColor,
+          borderWidth: 1,
+        },{
+          label: 'Duration',
+          data: durationArr,
+          type: 'bubble',
+          backgroundColor: durationColor,
+          borderColor: durationColor,
+          borderWidth: 2,
         }]
       },
       options: {
         scales: {
           yAxes: [{
             ticks: {
-              max: 7,
+              max: 50,
               min : 0,
-              stepSize: 1,
+              stepSize: 5,
               beginAtZero: true
             }
           }]
