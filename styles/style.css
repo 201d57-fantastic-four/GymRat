@@ -10,8 +10,7 @@ body {
 
 header {
   margin-bottom: 15px;
-  position: fixed;
-  top: 0;
+  height: 100px;
   width: 100%;
 }
 
@@ -43,7 +42,7 @@ header > nav > ul > li > a:hover {
 }
 
 main {
-  margin-top: 150px;
+  margin-top: 80px;
 }
 
 #signin {
