@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
-    console.log(historicalData);
     let distanceArr = [];
     let mphArr = [];
     let durationArr = [];
@@ -13,7 +12,6 @@ var charts = {
       mphArr.push(element.mph);
       durationArr.push(element.duration);
     });
-    console.log(durationArr);
     if(mphArr.length > 7){
       do {
         distanceArr.shift();
