@@ -1,19 +1,22 @@
 /* eslint-disable no-undef */
 'use strict';
 var cardBox = document.getElementById('card-box');
-
+var weightForm = null;
+function handleWeightSetsFormSub(e) {
+  e.preventDefault();
+  createSecondaryWeightsForm(parseInt(e.target[0].value));
+}
 function makeForm(key, uNumber) {
-  console.log('key', key);
-  let form = document.createElement('form');
+  weightForm = document.createElement('form');
   if (key === 'cardio-mph-distance') {
     //form
-    form.id = uNumber;
+    weightForm.id = uNumber;
     // input - distance
     let distance = document.createElement('input');
-    distance.required = true;
-    distance.type = 'number';
-    distance.name = 'distance';
-    distance.placeholder = 'Enter distance in miles';
+    weightForm.required = true;
+    weightForm.type = 'number';
+    weightForm.name = 'distance';
+    weightForm.placeholder = 'Enter distance in miles';
     distance.className = 'distance-input';
     distance.step = '.1';
     distance.min = .1;
@@ -62,7 +65,7 @@ function makeForm(key, uNumber) {
     subButton.type = 'submit';
 
     // Event handler - Distance, hours, minutes
-    form.addEventListener('submit', function (event) {
+    weightForm.addEventListener('submit', function (event) {
       event.preventDefault();
       //TODO:Split this off into a fn that has the logic to generate the correct exercise element
       let runDistance = parseInt(event.target.distance.value);
@@ -81,18 +84,94 @@ function makeForm(key, uNumber) {
       show(lookupUser(getGlobalUsername()));
     });
 
-    form.appendChild(labelDistance);
-    form.appendChild(distance);
-    form.appendChild(duration);
-    form.appendChild(labelhours);
-    form.appendChild(hours);
-    form.appendChild(labelminutes);
-    form.appendChild(minutes);
-    form.appendChild(subButton);
+    weightForm.appendChild(labelDistance);
+    weightForm.appendChild(distance);
+    weightForm.appendChild(duration);
+    weightForm.appendChild(labelhours);
+    weightForm.appendChild(hours);
+    weightForm.appendChild(labelminutes);
+    weightForm.appendChild(minutes);
+    weightForm.appendChild(subButton);
   } else if (key === 'weight-sets-reps') {
-    //TODO: Make the weights form.
+    weightForm.id = uNumber;
+    let label = document.createElement('label');
+    label.for = 'setsInput';
+    label.innerText = 'Sets';
+    let setsNumberInput = document.createElement('input');
+    setsNumberInput.name = 'setsInput';
+    setsNumberInput.min = 1;
+    setsNumberInput.type = 'number';
+    setsNumberInput.placeholder = 'How Many Sets did you do?';
+    let nextFormButton = document.createElement('button');
+    nextFormButton.innerText = 'Next';
+    nextFormButton.type = 'submit';
+    weightForm.addEventListener('submit', handleWeightSetsFormSub);
+    weightForm.appendChild(label);
+    weightForm.appendChild(setsNumberInput);
+    weightForm.appendChild(nextFormButton);
   }
-  return form;
+  return weightForm;
+}
+function createSecondaryWeightsForm(totalNumber) {
+  weightForm.removeEventListener('submit', handleWeightSetsFormSub);
+  weightForm.innerHTML = '';
+
+  for (let i = 0; i < totalNumber; i++) {
+    //Weight inputs
+    let weightInput = document.createElement('input');
+    weightInput.name = `weightInput-${i}`;
+    weightInput.placeholder = 'weight';
+    weightInput.min = 1;
+
+    let weightLabel = document.createElement('label');
+    weightLabel.for = `weightInput-${i}`;
+    weightLabel.innerText = 'Weight';
+
+    let repsInput = document.createElement('input');
+    repsInput.name = `repsInput-${i}`;
+    repsInput.placeholder = 'reps';
+    repsInput.min = 1;
+    let repsLabel = document.createElement('label');
+    repsLabel.for = `repsInput-${i}`;
+    repsLabel.innerText = 'Reps';
+
+    let hrEl = document.createElement('hr');
+
+    weightForm.appendChild(weightInput);
+    weightForm.appendChild(weightLabel);
+    weightForm.appendChild(repsInput);
+    weightForm.appendChild(repsLabel);
+    weightForm.appendChild(hrEl);
+
+  }
+  let subButton = document.createElement('button');
+  subButton.type = 'submit';
+  subButton.innerText = 'Add';
+  weightForm.appendChild(subButton);
+
+  weightForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let workingWeight = [];
+    let workingReps = [];
+    for (let i = 0; i < e.target.length; i++) {
+      if (e.target[i].name.split('-')[0] === 'weightInput') {
+        workingWeight.push(parseInt(e.target[i].value));
+      } else if (e.target[i].name.split('-')[0] === 'repsInput') {
+        workingReps.push(parseInt(e.target[i].value));
+      }
+    }
+    let userData = lookupUser(getGlobalUsername());
+    let todaysRecord = [];
+
+    for( let i = 0; i < workingWeight.length; i++){
+      let newWeightObject = new WeightReps(workingWeight[i],workingReps[i]);
+      todaysRecord.push(newWeightObject);
+    }
+    userData[parseInt(weightForm.id)].historicalData.push(todaysRecord);
+    saveUpdatedUserInfo(getGlobalUsername(), userData);
+    show(lookupUser(getGlobalUsername()));
+  });
+
 }
 function generateTrackNewEx() {
 
@@ -102,13 +181,13 @@ function generateTrackNewEx() {
   let title = document.createElement('h2');
   title.innerText = 'Track new exercise?';
   let button = document.createElement('button');
-  button.innerText= 'Track New.';
+  button.innerText = 'Track New.';
   button.id = 'track-new-exercise-type-button';
 
   card.appendChild(title);
   card.appendChild(button);
   cardBox.appendChild(card);
-  button.addEventListener('click', ()=>{
+  button.addEventListener('click', () => {
     generateAddExercizeForm(card);
   });
 
@@ -143,8 +222,8 @@ function generateTrackNewEx() {
       exName = e.target[0].value;
       exChart = keys[dropDown.selectedIndex];
       let userData = lookupUser(getGlobalUsername());
-      userData.push(new ExerciseObject(exName,exChart, []));
-      saveUpdatedUserInfo(getGlobalUsername(),userData);
+      userData.push(new ExerciseObject(exName, exChart, []));
+      saveUpdatedUserInfo(getGlobalUsername(), userData);
       show(lookupUser(getGlobalUsername()));
     });
     form.appendChild(subButton);
@@ -270,7 +349,7 @@ var loginLink = document.getElementById('login');
 // Add click event listener and check whether to change it from Logout to Login
 // Set the global username from localstorage to null
 // Reload the page
-loginLink.addEventListener('click', function() {
+loginLink.addEventListener('click', function () {
   if (loginLink.textContent === 'Logout') {
     loginLink.textContent = 'Login';
   }
