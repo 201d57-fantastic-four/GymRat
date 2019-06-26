@@ -244,6 +244,26 @@ nameForm.addEventListener('submit', (e) => {
   handleFormSubmitName(e);
 });
 
+//Modal Start
+//Getting Modal
+var modal = document.getElementById('aboutUsModal');
+
+//getting open button
+var button = document.getElementById('aboutUsButton');
+
+//getting close button
+var closeButton = document.getElementsByClassName('close') [0];
+
+//Opens the Modal
+button.addEventListener('click', function(){
+  modal.style.display = 'block';
+});
+
+//closes the Modal
+closeButton.addEventListener('click', function(){
+  modal.style.display = 'none';
+});
+
 // Select the Login link in the header
 var loginLink = document.getElementById('login');
 

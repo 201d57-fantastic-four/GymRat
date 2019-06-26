@@ -15,7 +15,9 @@
     <nav>
       <ul>
         <li><a id="login" href="#">Login</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <!--Button for Modal - Modal Reference: https://www.w3schools.com/howto/howto_css_modals.asp -->
+        <li><a href="#" id="aboutUsButton">Contact Us</a></li>
       </ul>
     </nav>
   </header>
@@ -35,6 +37,35 @@
         <button type="submit">Submit</button>
       </form>
     </section>
+    
+    <!--The Modal-->
+    <div id="aboutUsModal" class="modal">
+
+      <!--Modal Content-->
+      <div class="modal-content">
+        <h1>The Fanstactic Four</h1>
+        <h2>Meet the Devs of GymRat</h2>
+        <hr>
+        <span class="close">&times;</span>
+        <ul id="aboutUsContent">
+          <li>Steve Grant</li>
+          <p><a href="https://github.com/Stevengrant">Steven's GitHub</a></p>
+          <li><img src="assets/Steve.png"></li>
+
+          <li>Melfi Perez</li>
+          <p><a href="https://github.com/perezm27">Melfi's GitHub</a></p>
+          <li><img src="assets/Melfi.png"></li>
+
+          <li>Matt Stuhring</li>
+          <p><a href="https://github.com/mattstuhring">Matt's GitHub</a></p>
+          <li><img src="assets/Matt.png"></li>
+
+          <li>Joachen Busch</li>
+          <p><a href="https://github.com/JBusch2010">Joachen's GitHub<a><p>
+          <li><img src="assets/Joachen.png"></li>
+        </ul>
+      </div>
+    </div>
     
     <!-- Dashboard -->
     <section id='card-box'></section>
