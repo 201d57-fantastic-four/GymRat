@@ -15,7 +15,92 @@ function makeNewUser(username) {
 }
 
 var cardBox = document.getElementById('card-box');
+function makeForm(key, uNumber) {
+  let form =document.createElement('form');
+  if (key === 'cardio-mph-distance') {
+    //form
+    form.id = uNumber;
+    // input - distance
+    let distance = document.createElement('input');
+    distance.required = true;
+    distance.type = 'number';
+    distance.name = 'distance';
+    distance.placeholder = 'Enter distance in miles';
+    distance.className = 'distance-input';
+    distance.step = '.1';
 
+    // label - distance
+    var labelDistance = document.createElement('label');
+    labelDistance.htmlFor = distance;
+    labelDistance.textContent = 'Distance';
+
+    // title - duration
+    let duration = document.createElement('h3');
+    duration.textContent = 'Duration';
+
+    // input - hours
+    let hours = document.createElement('input');
+    hours.required = true;
+    hours.type = 'number';
+    hours.name = 'hours';
+    hours.value = 0;
+
+    // label - hours
+    var labelhours = document.createElement('label');
+    labelhours.htmlFor = hours;
+    labelhours.textContent = 'Hours';
+
+    // input - minutes
+    let minutes = document.createElement('input');
+    minutes.required = true;
+    minutes.type = 'number';
+    minutes.name = 'minutes';
+    minutes.value = 0;
+
+    // label - minutes
+    var labelminutes = document.createElement('label');
+    labelminutes.htmlFor = minutes;
+    labelminutes.textContent = 'Minutes';
+
+    // button
+    let subButton = document.createElement('button');
+    subButton.innerText = 'Add today\'s result';
+    subButton.id = `sub-button-${uNumber}`;
+    subButton.type = 'submit';
+
+    // Event handler - Distance, hours, minutes
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      //TODO:Split this off into a fn that has the logic to generate the correct exercise element
+      let runDistance = parseInt(event.target.distance.value);
+      let runHours = parseInt(event.target.hours.value);
+      // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
+      let runMinutes = (parseInt(event.target.minutes.value) / .6) * 0.01;
+      let runTime = runHours + runMinutes;
+      let index = parseInt(event.target.id);
+      //NEW EX EL res of new fn
+      let newExEl = new CardioElement(runTime, runDistance);
+      //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
+      let userData = lookupUser(globalUsername);
+      userData[index].historicalData.push(newExEl);
+      saveUpdatedUserInfo(globalUsername, userData);
+      cardBox.innerHTML = '';
+      show(lookupUser(globalUsername));
+    });
+
+    form.appendChild(labelDistance);
+    form.appendChild(distance);
+    form.appendChild(duration);
+    form.appendChild(labelhours);
+    form.appendChild(hours);
+    form.appendChild(labelminutes);
+    form.appendChild(minutes);
+    form.appendChild(subButton);
+  } else if (key === 'weights-sets-reps') {
+    console.log('Nothing here');
+  } 
+  return form;
+}
 var drawCard = function (exerciseObject, parentEl, uNumber) {
   //make card
   let card = document.createElement('section');
@@ -25,86 +110,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   title.innerText = 'Do you have any new exercises to track?';
   //append
   card.appendChild(title);
-  //form
-  let addExerciseTypeForm = document.createElement('form');
-  addExerciseTypeForm.id = uNumber;
-
-  // input - distance
-  let distance = document.createElement('input');
-  distance.required = true;
-  distance.type = 'number';
-  distance.name = 'distance';
-  distance.placeholder = 'Enter distance in miles';
-  distance.className = 'distance-input';
-  distance.step = '.1';
-
-  // label - distance
-  var labelDistance = document.createElement('label');
-  labelDistance.htmlFor = distance;
-  labelDistance.textContent = 'Distance';
-
-  // title - duration
-  let duration = document.createElement('h3');
-  duration.textContent = 'Duration';
-
-  // input - hours
-  let hours = document.createElement('input');
-  hours.required = true;
-  hours.type = 'number';
-  hours.name = 'hours';
-  hours.value = 0;
-
-  // label - hours
-  var labelhours = document.createElement('label');
-  labelhours.htmlFor = hours;
-  labelhours.textContent = 'Hours';
-
-  // input - minutes
-  let minutes = document.createElement('input');
-  minutes.required = true;
-  minutes.type = 'number';
-  minutes.name = 'minutes';
-  minutes.value = 0;
-
-  // label - minutes
-  var labelminutes = document.createElement('label');
-  labelminutes.htmlFor = minutes;
-  labelminutes.textContent = 'Minutes';
-
-  // button
-  let subButton = document.createElement('button');
-  subButton.innerText = 'Add today\'s result';
-  subButton.id = `sub-button-${uNumber}`;
-  subButton.type = 'submit';
-
-  // Event handler - Distance, hours, minutes
-  addExerciseTypeForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    //TODO:Split this off into a fn that has the logic to generate the correct exercise element
-    let runDistance = parseInt(event.target.distance.value);
-    let runHours = parseInt(event.target.hours.value);
-    // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
-    let runMinutes = (parseInt(event.target.minutes.value) / .6) * 0.01;
-    let runTime = runHours + runMinutes;
-    let index = parseInt(event.target.id);
-    //NEW EX EL res of new fn
-    let newExEl = new CardioElement(runTime, runDistance);
-    //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
-    let userData = lookupUser(globalUsername);
-    userData[index].historicalData.push(newExEl);
-    saveUpdatedUserInfo(globalUsername, userData);
-    cardBox.innerHTML = '';
-    show(lookupUser(globalUsername));
-  });
-
-  addExerciseTypeForm.appendChild(labelDistance);
-  addExerciseTypeForm.appendChild(distance);
-  addExerciseTypeForm.appendChild(duration);
-  addExerciseTypeForm.appendChild(labelhours);
-  addExerciseTypeForm.appendChild(hours);
-  addExerciseTypeForm.appendChild(labelminutes);
-  addExerciseTypeForm.appendChild(minutes);
-  addExerciseTypeForm.appendChild(subButton);
+  let addExerciseTypeForm = makeForm(exerciseObject.chartType,uNumber);
 
   card.appendChild(addExerciseTypeForm);
   let holder = document.createElement('section');
@@ -155,7 +161,7 @@ var handleFormSubmitName = function (event) {
 
   // Reset the form to empty
   nameForm.reset();
-  
+
   //Hides card
   var hideCardOnSubmit = document.querySelector('#name');
   hideCardOnSubmit.style.display = 'none';
