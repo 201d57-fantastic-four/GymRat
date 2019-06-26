@@ -14,7 +14,6 @@ var charts = {
       // eslint-disable-next-line semi
       } while (mphArr.length > 7)
     }
-    //TODO: implement this/draw chart.
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
       type: 'bar',
@@ -60,6 +59,9 @@ var charts = {
       }
     });
 
+  },
+  'weight-sets-reps': (chartbox, historicalData) =>{
+    //TODO: Draw Chart for weight
   }
 };
 

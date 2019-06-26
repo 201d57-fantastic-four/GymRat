@@ -1,22 +1,11 @@
 /* eslint-disable no-undef */
 'use strict';
 var globalUsername = '';
-//creating excercise array for new user
-// eslint-disable-next-line no-unused-vars
-function makeNewUser(username) {
-  let excercise = new ExerciseObject('run', 'cardio-mph-distance', []);
-  //saving array to local storage
-  //TODO: Split this off into its own function in Storage.js
-  let workingArray = [];
-  workingArray.push(excercise);
-  localStorage.setItem(username, JSON.stringify(workingArray));
-  // eslint-disable-next-line no-undef
-  return lookupUser(username);
-}
-
 var cardBox = document.getElementById('card-box');
+
 function makeForm(key, uNumber) {
-  let form =document.createElement('form');
+  console.log('key', key);
+  let form = document.createElement('form');
   if (key === 'cardio-mph-distance') {
     //form
     form.id = uNumber;
@@ -96,10 +85,67 @@ function makeForm(key, uNumber) {
     form.appendChild(labelminutes);
     form.appendChild(minutes);
     form.appendChild(subButton);
-  } else if (key === 'weights-sets-reps') {
-    console.log('Nothing here');
-  } 
+  } else if (key === 'weight-sets-reps') {
+    //TODO: Make the weights form.
+  }
   return form;
+}
+function generateTrackNewEx() {
+
+  let card = document.createElement('section');
+  card.classList += 'card';
+  card.id = 'form-box';
+  let title = document.createElement('h2');
+  title.innerText = `Track new exercise?`;
+  let button = document.createElement('button');
+  button.innerText= 'Track New.';
+  button.id = 'track-new-exercise-type-button';
+
+  card.appendChild(title);
+  card.appendChild(button);
+  cardBox.appendChild(card);
+  button.addEventListener('click', ()=>{
+    generateAddExercizeForm(card);
+  });
+
+  function generateAddExercizeForm(card) {
+
+    card.innerHTML = '';
+    let form = document.createElement('form');
+    let exNameEl = document.createElement('input');
+    exNameEl.placeholder = 'What Exercise do you want to track?';
+    exNameEl.name = 'exName';
+    form.appendChild(exNameEl);
+  
+    let keys = Object.getOwnPropertyNames(charts);
+    let dropDown = document.createElement('select');
+    for (let i = 0; i < keys.length; i++) {
+      let optionEl = document.createElement('option');
+      optionEl.value = keys[i];
+      optionEl.innerText = keys[i].split('-').join(' ');
+      dropDown.appendChild(optionEl);
+    }
+    form.appendChild(dropDown);
+  
+    let subButton = document.createElement('button');
+    subButton.innerText = 'Track this';
+    subButton.type = 'submit';
+
+    let exName = null;
+    let exChart = null;
+    form.addEventListener('submit', (e) => {
+      
+      e.preventDefault();
+      exName = e.target[0].value;
+      exChart = keys[dropDown.selectedIndex];
+      let userData = lookupUser(globalUsername);
+      userData.push(new ExerciseObject(exName,exChart, []));
+      saveUpdatedUserInfo(globalUsername,userData);
+      show(lookupUser(globalUsername));
+    });
+    form.appendChild(subButton);
+    card.appendChild(form);
+  }
 }
 var drawCard = function (exerciseObject, parentEl, uNumber) {
   //make card
@@ -107,10 +153,13 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   card.classList += 'card';
   //make title
   let title = document.createElement('h2');
-  title.innerText = 'New exercise to track?';
+  title.innerText = `New ${exerciseObject.exerciseType} to track?`;
+  let subTitle = document.createElement('h2');
+  subTitle.innerText = `Your past data for: ${exerciseObject.exerciseType}`;
   //append
   card.appendChild(title);
-  let addExerciseTypeForm = makeForm(exerciseObject.chartType,uNumber);
+
+  let addExerciseTypeForm = makeForm(exerciseObject.chartType, uNumber);
 
   card.appendChild(addExerciseTypeForm);
   let holder = document.createElement('section');
@@ -121,6 +170,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   chartBox.height = '400';
   chartBox.id = chartId;
   holder.appendChild(chartBox);
+  card.appendChild(subTitle);
   card.appendChild(holder);
   // eslint-disable-next-line no-undef
   charts[exerciseObject.chartType](chartBox, exerciseObject.historicalData);
@@ -138,7 +188,6 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 
 //DailyCardio Constructor
 function CardioElement(duration, distance) {
-  //TODO: Fix magic strings
   this.duration = duration;
   this.distance = distance;
   this.mph = this.distance / this.duration;
@@ -173,12 +222,18 @@ var handleFormSubmitName = function (event) {
 
 function show(arr) {
   cardBox.innerHTML = '';
+  generateTrackNewEx();
+  //generate the track new exercise button/form 
   let i = 0;
   do {
     drawCard(arr[i], cardBox, i);
     i++;
   } while (i < arr.length);
 
+}
+function WeightReps(weight, reps) {
+  this.weight = weight;
+  this.reps = reps;
 }
 
 nameForm.addEventListener('submit', (e) => {

@@ -17,7 +17,6 @@ function lookupUser (username){
 function makeNewUser(username) {
   let excercise = new ExerciseObject('run', 'cardio-mph-distance', []);
   //saving array to local storage
-  //TODO: Split this off into its own function in Storage.js
   let workingArray = [];
   workingArray.push(excercise);
   localStorage.setItem(username, JSON.stringify(workingArray));
