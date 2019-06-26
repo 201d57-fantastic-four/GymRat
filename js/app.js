@@ -4,6 +4,7 @@ var globalUsername = '';
 var cardBox = document.getElementById('card-box');
 
 function makeForm(key, uNumber) {
+  console.log('key', key);
   let form = document.createElement('form');
   if (key === 'cardio-mph-distance') {
     //form
@@ -84,8 +85,8 @@ function makeForm(key, uNumber) {
     form.appendChild(labelminutes);
     form.appendChild(minutes);
     form.appendChild(subButton);
-  } else if (key === 'weights-sets-reps') {
-    console.log('Nothing here');
+  } else if (key === 'weight-sets-reps') {
+    //TODO: Make the weights form.
   }
   return form;
 }
