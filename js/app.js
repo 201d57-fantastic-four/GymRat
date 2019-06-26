@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 'use strict';
-var globalUsername = '';
 var cardBox = document.getElementById('card-box');
 
 function makeForm(key, uNumber) {
@@ -96,7 +95,7 @@ function generateTrackNewEx() {
   card.classList += 'card';
   card.id = 'form-box';
   let title = document.createElement('h2');
-  title.innerText = `Track new exercise?`;
+  title.innerText = 'Track new exercise?';
   let button = document.createElement('button');
   button.innerText= 'Track New.';
   button.id = 'track-new-exercise-type-button';
@@ -116,7 +115,7 @@ function generateTrackNewEx() {
     exNameEl.placeholder = 'What Exercise do you want to track?';
     exNameEl.name = 'exName';
     form.appendChild(exNameEl);
-  
+
     let keys = Object.getOwnPropertyNames(charts);
     let dropDown = document.createElement('select');
     for (let i = 0; i < keys.length; i++) {
@@ -126,7 +125,7 @@ function generateTrackNewEx() {
       dropDown.appendChild(optionEl);
     }
     form.appendChild(dropDown);
-  
+
     let subButton = document.createElement('button');
     subButton.innerText = 'Track this';
     subButton.type = 'submit';
@@ -134,14 +133,14 @@ function generateTrackNewEx() {
     let exName = null;
     let exChart = null;
     form.addEventListener('submit', (e) => {
-      
+
       e.preventDefault();
       exName = e.target[0].value;
       exChart = keys[dropDown.selectedIndex];
-      let userData = lookupUser(globalUsername);
+      let userData = lookupUser(getGlobalUsername());
       userData.push(new ExerciseObject(exName,exChart, []));
-      saveUpdatedUserInfo(globalUsername,userData);
-      show(lookupUser(globalUsername));
+      saveUpdatedUserInfo(getGlobalUsername(),userData);
+      show(lookupUser(getGlobalUsername()));
     });
     form.appendChild(subButton);
     card.appendChild(form);
@@ -223,7 +222,7 @@ var handleFormSubmitName = function (event) {
 function show(arr) {
   cardBox.innerHTML = '';
   generateTrackNewEx();
-  //generate the track new exercise button/form 
+  //generate the track new exercise button/form
   let i = 0;
   do {
     drawCard(arr[i], cardBox, i);
