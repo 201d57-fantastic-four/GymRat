@@ -31,6 +31,7 @@ var charts = {
     }
 
     var chartelem = chartbox.getContext('2d');
+    // eslint-disable-next-line
     var myChart = new Chart(chartelem, {
       type: 'bar',
       data: {
@@ -132,6 +133,7 @@ var charts = {
     }
     //our weight exercise chart properties
     var chartelem = chartbox.getContext('2d');
+    // eslint-disable-next-line
     var myChart = new Chart(chartelem, {
       type: 'line',
       data: {
@@ -157,7 +159,7 @@ var charts = {
           ],
           borderWidth: 1,
         },
-      ]
+        ]
       },
       options: {
         scales: {
@@ -173,4 +175,4 @@ var charts = {
       }
     });
   },
-  };
+};
