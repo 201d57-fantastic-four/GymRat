@@ -344,7 +344,7 @@ function CardioElement(duration, distance) {
   this.duration = duration;
   this.distance = distance;
   this.currentDateAndTime = currentDateAndTime();
-  this.mph = this.distance / this.duration;
+  this.mph = Math.trunc(this.distance / this.duration);
   //update form
 }
 
