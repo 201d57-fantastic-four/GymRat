@@ -65,7 +65,6 @@ function makeForm(key, uNumber) {
     // Event handler - Distance, hours, minutes
     weightForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      //TODO:Split this off into a fn that has the logic to generate the correct exercise element
       let runDistance = parseInt(event.target[0].value);
       let runHours = parseInt(event.target[1].value);
       // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
@@ -74,7 +73,6 @@ function makeForm(key, uNumber) {
       let index = parseInt(event.target.id);
       //NEW EX EL res of new fn
       let newExEl = new CardioElement(runTime, runDistance);
-      //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
       let userData = lookupUser(getGlobalUsername());
       userData[index].historicalData.push(newExEl);
       saveUpdatedUserInfo(getGlobalUsername(), userData);
@@ -122,26 +120,7 @@ function handleWeightSetsFormSub(e) {
 function createSecondaryWeightsForm(totalNumber) {
   weightForm.removeEventListener('submit', handleWeightSetsFormSub);
   weightForm.innerHTML = '';
-  let removeOne= document.createElement('button');
-  removeOne.id = 'remove-set';
-  removeOne.innerText= 'Remove set';
-  removeOne.addEventListener('click', (e)=>{
-    e.preventDefault();
-    let newDraw = totalNumber - 1;
-    createSecondaryWeightsForm(newDraw);
-  });
-  let addOne= document.createElement('button');
-  addOne.id = 'add-set';
-  addOne.innerText= 'Add set';
-  addOne.addEventListener('click', (e)=>{
-    e.preventDefault();
-    let newDraw = totalNumber + 1;
-    createSecondaryWeightsForm(newDraw);
-  });
   weightForm.className = 'weight-reps-form';
-
-  weightForm.appendChild(removeOne);
-  weightForm.appendChild(addOne);
   weightForm.appendChild(document.createElement('hr'));
   for (let i = 0; i < totalNumber; i++) {
     //Weight inputs
@@ -176,9 +155,6 @@ function createSecondaryWeightsForm(totalNumber) {
     weightForm.appendChild(repsInput);
     weightForm.appendChild(hrEl);
   }
-  
-
-
   let subButton = document.createElement('button');
   subButton.type = 'submit';
   subButton.innerText = 'Add';
@@ -195,18 +171,19 @@ function createSecondaryWeightsForm(totalNumber) {
         workingReps.push(parseInt(e.target[i].value));
       }
     }
+
     let userData = lookupUser(getGlobalUsername());
     let todaysRecord = [];
 
-    for( let i = 0; i < workingWeight.length; i++){
-      let newWeightObject = new WeightReps(workingWeight[i],workingReps[i]);
+    for (let i = 0; i < workingWeight.length; i++) {
+      let newWeightObject = new WeightReps(workingWeight[i], workingReps[i]);
       todaysRecord.push(newWeightObject);
     }
     userData[parseInt(weightForm.id)].historicalData.push(todaysRecord);
     saveUpdatedUserInfo(getGlobalUsername(), userData);
     show(lookupUser(getGlobalUsername()));
   });
-  
+
 }
 function generateTrackNewEx() {
 
@@ -226,7 +203,7 @@ function generateTrackNewEx() {
   let title = document.createElement('h2');
   title.innerText = 'Track new exercise?';
   let button = document.createElement('button');
-  button.innerText= 'Yes';
+  button.innerText = 'Yes';
   button.id = 'track-new-exercise-type-button';
   profileDiv.appendChild(profileImg);
 
@@ -292,7 +269,6 @@ function generateTrackNewEx() {
     let exName = null;
     let exChart = null;
     form.addEventListener('submit', (e) => {
-
       e.preventDefault();
       exName = e.target[0].value;
       exChart = keys[dropDown.selectedIndex];
@@ -338,7 +314,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
 
 function getCurrentDateAndTime() {
   var today = new Date();
-  var date = `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
+  var date = `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`;
   var time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
   return `${date} ${time}`;
 }
@@ -415,15 +391,15 @@ var modal = document.getElementById('aboutUsModal');
 var button = document.getElementById('aboutUsButton');
 
 //getting close button
-var closeButton = document.getElementsByClassName('close') [0];
+var closeButton = document.getElementsByClassName('close')[0];
 
 //Opens the Modal
-button.addEventListener('click', function(){
+button.addEventListener('click', function () {
   modal.style.display = 'block';
 });
 
 //closes the Modal
-closeButton.addEventListener('click', function(){
+closeButton.addEventListener('click', function () {
   modal.style.display = 'none';
 });
 
