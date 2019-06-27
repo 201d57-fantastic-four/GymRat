@@ -35,6 +35,7 @@ function makeForm(key, uNumber) {
     hours.name = 'hours';
     hours.value = 0;
     hours.min = 0;
+    hours.max = 5;
 
     // label - hours
     var labelhours = document.createElement('label');
