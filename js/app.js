@@ -100,6 +100,7 @@ function makeForm(key, uNumber) {
     let setsNumberInput = document.createElement('input');
     setsNumberInput.name = 'setsInput';
     setsNumberInput.min = 1;
+    setsNumberInput.max = 7;
     setsNumberInput.type = 'number';
     setsNumberInput.placeholder = 'How many sets are you going to do?';
     let nextFormButton = document.createElement('button');
@@ -122,14 +123,16 @@ function createSecondaryWeightsForm(totalNumber) {
   weightForm.removeEventListener('submit', handleWeightSetsFormSub);
   weightForm.innerHTML = '';
   let removeOne= document.createElement('button');
-  removeOne.innerText= 'Remove one set';
+  removeOne.id = 'remove-set';
+  removeOne.innerText= 'Remove set';
   removeOne.addEventListener('click', (e)=>{
     e.preventDefault();
     let newDraw = totalNumber - 1;
     createSecondaryWeightsForm(newDraw);
   });
   let addOne= document.createElement('button');
-  addOne.innerText= 'Add one set';
+  addOne.id = 'add-set';
+  addOne.innerText= 'Add set';
   addOne.addEventListener('click', (e)=>{
     e.preventDefault();
     let newDraw = totalNumber + 1;
@@ -143,18 +146,24 @@ function createSecondaryWeightsForm(totalNumber) {
   for (let i = 0; i < totalNumber; i++) {
     //Weight inputs
     let weightInput = document.createElement('input');
+    weightInput.required = true;
+    weightInput.type = 'number';
     weightInput.name = `weightInput-${i}`;
     weightInput.placeholder = 'Enter weight';
     weightInput.min = 1;
+    weightInput.max = 500;
 
     let weightLabel = document.createElement('label');
     weightLabel.for = `weightInput-${i}`;
     weightLabel.innerText = 'Weight';
 
     let repsInput = document.createElement('input');
+    repsInput.type = 'number';
+    repsInput.required = true;
     repsInput.name = `repsInput-${i}`;
     repsInput.placeholder = 'Enter reps';
     repsInput.min = 1;
+    repsInput.max = 30;
     let repsLabel = document.createElement('label');
     repsLabel.for = `repsInput-${i}`;
     repsLabel.innerText = 'Reps';
@@ -256,6 +265,8 @@ function generateTrackNewEx() {
     form.appendChild(inputLabel);
 
     let exNameEl = document.createElement('input');
+    exNameEl.required = true;
+    exNameEl.maxLength = 16;
     exNameEl.placeholder = 'ex. Run, Bike, Swim, Bench, Squat, . . .';
     exNameEl.name = 'exName';
     form.appendChild(exNameEl);
