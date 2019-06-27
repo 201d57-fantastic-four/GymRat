@@ -94,14 +94,29 @@ function generateTrackNewEx() {
   let card = document.createElement('section');
   card.classList += 'card';
   card.id = 'form-box';
+  let profileDiv = document.createElement('div');
+  profileDiv.id = 'profile1';
+  let profileImg = document.createElement('img');
+  profileImg.src = './assets/user.png';
+  let profileWordsDiv = document.createElement('div');
+  profileWordsDiv.id = 'words';
+  
+
+  let profileName = document.createElement('p');
+  profileName.textContent = `Hello, ${getGlobalUsername()}`;
   let title = document.createElement('h2');
   title.innerText = 'Track new exercise?';
   let button = document.createElement('button');
-  button.innerText= 'Track New.';
+  button.innerText= 'Yes!';
   button.id = 'track-new-exercise-type-button';
+  profileDiv.appendChild(profileImg);
 
-  card.appendChild(title);
-  card.appendChild(button);
+  profileWordsDiv.appendChild(profileName);
+  profileWordsDiv.appendChild(title);
+  profileWordsDiv.appendChild(button);
+  profileDiv.appendChild(profileWordsDiv);
+  
+  card.appendChild(profileDiv);
   cardBox.appendChild(card);
   button.addEventListener('click', ()=>{
     generateAddExercizeForm(card);
@@ -110,11 +125,34 @@ function generateTrackNewEx() {
   function generateAddExercizeForm(card) {
 
     card.innerHTML = '';
+    let profileDiv = document.createElement('div');
+    profileDiv.id = 'profile2';
+    let profileImg = document.createElement('img');
+    profileImg.src = './assets/user.png';
+    let profileName1 = document.createElement('p');
+    profileName1.textContent = `${getGlobalUsername()},`;
+    let profileName2 = document.createElement('p');
+    profileName2.textContent = 'Let\'s get tracking!';
+    profileDiv.appendChild(profileImg);
+    profileDiv.appendChild(profileName1);
+    profileDiv.appendChild(profileName2);
+    card.appendChild(profileDiv);
+
     let form = document.createElement('form');
+    form.id = 'new-track-form';
+
+    let inputLabel = document.createElement('label');
+    inputLabel.textContent = 'What Exercise do you want to track?';
+    form.appendChild(inputLabel);
+
     let exNameEl = document.createElement('input');
-    exNameEl.placeholder = 'What Exercise do you want to track?';
+    exNameEl.placeholder = 'ex. Run, Bike, Swim, Bench, Squat, . . .';
     exNameEl.name = 'exName';
     form.appendChild(exNameEl);
+
+    inputLabel = document.createElement('label');
+    inputLabel.textContent = 'Exercise Type';
+    form.appendChild(inputLabel);
 
     let keys = Object.getOwnPropertyNames(charts);
     let dropDown = document.createElement('select');
@@ -127,7 +165,7 @@ function generateTrackNewEx() {
     form.appendChild(dropDown);
 
     let subButton = document.createElement('button');
-    subButton.innerText = 'Track this';
+    subButton.innerText = 'Track!';
     subButton.type = 'submit';
 
     let exName = null;
@@ -153,7 +191,7 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   //make title
   let title = document.createElement('h2');
   title.innerText = `New ${exerciseObject.exerciseType} to track?`;
-  let subTitle = document.createElement('h2');
+  let subTitle = document.createElement('h4');
   subTitle.innerText = `Your past data for: ${exerciseObject.exerciseType}`;
   //append
   card.appendChild(title);
