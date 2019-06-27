@@ -139,7 +139,7 @@ var charts = {
       data: {
         labels: day,
         datasets: [{
-          label: ['Weight'],
+          label: ['Swol Index'],
           data: acc,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
