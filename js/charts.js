@@ -1,3 +1,4 @@
+'use strict';
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
@@ -89,17 +90,21 @@ var charts = {
         let hdElem = historicalData[i][j];
         numOfRepsArr.push(hdElem.reps);
         weightArr.push(hdElem.weight);
-        numOfSetsArr.push(weightArr.length);
-        // console.log(numOfSetsArr);
+        console.log(weightArr);
       }
     }
-    if(numOfRepsArr.length > 7){
-      do {
-        weightArr.shift();
-        numOfRepsArr.shift();
-      // eslint-disable-next-line semi
-      } while (numOfRepsArr.length > 7)
+    //allocates number of sets
+    for (let g = 0; g < weightArr.length; g++){
+      var sets = weightArr.length;
+      numOfSetsArr.push(sets);
     }
+    // if(numOfRepsArr.length > 7){
+    //   do {
+    //     weightArr.shift();
+    //     numOfRepsArr.shift();
+    //   // eslint-disable-next-line semi
+    //   } while (numOfRepsArr.length > 7)
+    // }
 
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
