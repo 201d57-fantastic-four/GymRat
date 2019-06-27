@@ -72,7 +72,7 @@ function makeForm(key, uNumber) {
       let runTime = runHours + runMinutes;
       let index = parseInt(event.target.id);
       //NEW EX EL res of new fn
-      let newExEl = new CardioElement(runTime, runDistance);
+      let newExEl = new CardioElement(runTime, runDistance, getCurrentDateAndTime());
       //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
       let userData = lookupUser(getGlobalUsername());
       userData[index].historicalData.push(newExEl);
@@ -324,6 +324,13 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   parentEl.appendChild(card);
 };
 
+function getCurrentDateAndTime() {
+  var today = new Date();
+  var date = `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
+  var time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+  return `${date} ${time}`;
+}
+
 //Exercise Object Constructor
 // eslint-disable-next-line no-unused-vars
 function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', historicalData = []) {
@@ -333,9 +340,10 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 }
 
 //DailyCardio Constructor
-function CardioElement(duration, distance) {
+function CardioElement(duration, distance, currentDateAndTime) {
   this.duration = duration;
   this.distance = distance;
+  this.currentDateAndTime = currentDateAndTime;
   this.mph = this.distance / this.duration;
   //update form
 }
