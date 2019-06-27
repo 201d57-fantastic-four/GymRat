@@ -72,7 +72,7 @@ function makeForm(key, uNumber) {
       let runTime = runHours + runMinutes;
       let index = parseInt(event.target.id);
       //NEW EX EL res of new fn
-      let newExEl = new CardioElement(runTime, runDistance, getCurrentDateAndTime());
+      let newExEl = new CardioElement(runTime, runDistance);
       //TODO Above chunk gets its own fn and returns an appropreate ex elemnt
       let userData = lookupUser(getGlobalUsername());
       userData[index].historicalData.push(newExEl);
@@ -340,10 +340,10 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 }
 
 //DailyCardio Constructor
-function CardioElement(duration, distance, currentDateAndTime) {
+function CardioElement(duration, distance) {
   this.duration = duration;
   this.distance = distance;
-  this.currentDateAndTime = currentDateAndTime;
+  this.currentDateAndTime = currentDateAndTime();
   this.mph = this.distance / this.duration;
   //update form
 }
@@ -388,6 +388,7 @@ function show(arr) {
 function WeightReps(weight, reps) {
   this.weight = weight;
   this.reps = reps;
+  this.currentDateAndTime = getCurrentDateAndTime();
 }
 
 nameForm.addEventListener('submit', (e) => {
