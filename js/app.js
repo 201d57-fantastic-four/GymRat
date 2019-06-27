@@ -17,7 +17,7 @@ function makeForm(key, uNumber) {
     distance.className = 'distance-input';
     distance.step = '.1';
     distance.min = .1;
-    distance.max = 50;
+    distance.max = 10;
 
     // label - distance
     var labelDistance = document.createElement('label');
