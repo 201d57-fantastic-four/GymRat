@@ -99,7 +99,6 @@ var charts = {
   'weight-sets-reps': (chartbox, historicalData) =>{
     let weightArr = [];
     let numOfRepsArr = [];
-    let numOfSetsArr = [];
     let day = [];
 
     for (let i = 0; i < historicalData.length; i++){
@@ -109,11 +108,6 @@ var charts = {
         weightArr.push(hdElem.weight);
         console.log(weightArr);
       }
-    }
-    //allocates number of sets
-    for (let g = 0; g < weightArr.length; g++){
-      var sets = weightArr.length;
-      numOfSetsArr.push(sets);
     }
 
     //Calculates weight * reps & stores it in acc array
@@ -163,7 +157,6 @@ var charts = {
           ],
           borderWidth: 1,
         },
-
       ]
       },
       options: {
