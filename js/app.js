@@ -13,10 +13,10 @@ function makeForm(key, uNumber) {
     weightForm.id = uNumber;
     // input - distance
     let distance = document.createElement('input');
-    weightForm.required = true;
-    weightForm.type = 'number';
-    weightForm.name = 'distance';
-    weightForm.placeholder = 'Enter distance in miles';
+    distance.required = true;
+    distance.type = 'number';
+    distance.name = 'distance';
+    distance.placeholder = 'Enter distance in miles';
     distance.className = 'distance-input';
     distance.step = '.1';
     distance.min = .1;
@@ -68,10 +68,10 @@ function makeForm(key, uNumber) {
     weightForm.addEventListener('submit', function (event) {
       event.preventDefault();
       //TODO:Split this off into a fn that has the logic to generate the correct exercise element
-      let runDistance = parseInt(event.target.distance.value);
-      let runHours = parseInt(event.target.hours.value);
+      let runDistance = parseInt(event.target[0].value);
+      let runHours = parseInt(event.target[1].value);
       // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
-      let runMinutes = (parseInt(event.target.minutes.value) / .6) * 0.01;
+      let runMinutes = (parseInt(event.target[2].value) / .6) * 0.01;
       let runTime = runHours + runMinutes;
       let index = parseInt(event.target.id);
       //NEW EX EL res of new fn
