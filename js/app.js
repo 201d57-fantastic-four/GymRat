@@ -65,12 +65,12 @@ function makeForm(key, uNumber) {
     // Event handler - Distance, hours, minutes
     weightForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      let runDistance = parseInt(event.target[0].value);
-      let runHours = parseInt(event.target[1].value);
+      let runDistance = parseFloat(event.target[0].value);
+      let runHours = parseFloat(event.target[1].value);
       // 0.6 is the ratio that we would devide minutes by to get the decimal value... IE 45/.6 => 75 *.01 => 0.75
-      let runMinutes = (parseInt(event.target[2].value) / .6) * 0.01;
+      let runMinutes = (parseFloat(event.target[2].value) / .6) * 0.01;
       let runTime = runHours + runMinutes;
-      let index = parseInt(event.target.id);
+      let index = parseFloat(event.target.id);
       //NEW EX EL res of new fn
       let newExEl = new CardioElement(runTime, runDistance);
       let userData = lookupUser(getGlobalUsername());
@@ -114,7 +114,7 @@ function makeForm(key, uNumber) {
 //This is split up so we can remove the event listener later.
 function handleWeightSetsFormSub(e) {
   e.preventDefault();
-  createSecondaryWeightsForm(parseInt(e.target[0].value));
+  createSecondaryWeightsForm(parseFloat(e.target[0].value));
 }
 
 function createSecondaryWeightsForm(totalNumber) {
@@ -166,9 +166,9 @@ function createSecondaryWeightsForm(totalNumber) {
     let workingReps = [];
     for (let i = 0; i < e.target.length; i++) {
       if (e.target[i].name.split('-')[0] === 'weightInput') {
-        workingWeight.push(parseInt(e.target[i].value));
+        workingWeight.push(parseFloat(e.target[i].value));
       } else if (e.target[i].name.split('-')[0] === 'repsInput') {
-        workingReps.push(parseInt(e.target[i].value));
+        workingReps.push(parseFloat(e.target[i].value));
       }
     }
 
@@ -179,7 +179,7 @@ function createSecondaryWeightsForm(totalNumber) {
       let newWeightObject = new WeightReps(workingWeight[i], workingReps[i]);
       todaysRecord.push(newWeightObject);
     }
-    userData[parseInt(weightForm.id)].historicalData.push(todaysRecord);
+    userData[parseFloat(weightForm.id)].historicalData.push(todaysRecord);
     saveUpdatedUserInfo(getGlobalUsername(), userData);
     show(lookupUser(getGlobalUsername()));
   });
@@ -332,7 +332,7 @@ function CardioElement(duration, distance) {
   this.duration = duration;
   this.distance = distance;
   this.currentDateAndTime = getCurrentDateAndTime();
-  this.mph = Math.trunc(this.distance / this.duration);
+  this.mph = this.distance / this.duration;
   //update form
 }
 
