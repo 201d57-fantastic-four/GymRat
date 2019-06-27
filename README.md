@@ -29,6 +29,15 @@ A simple web application that keeps tracks of users cardio workout & displays it
 ## Versioning
 _June 2019:_ Version 1.0.0
 
+##Logo Source
+Rat 
+By N.K.Narasimhan, IN 
+https://thenounproject.com/search/?q=rat&i=316755
+
+Gym 
+By Sophia Bai, US 
+https://thenounproject.com/search/?q=gym&i=1921615
+
 ## License
 Please see License doc for more details. 
 
