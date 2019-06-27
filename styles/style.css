@@ -317,6 +317,35 @@ main {
   width: 100%;
 }
 
+.weight-form #sets-label {
+  text-decoration: none;
+}
+
+.weight-form input {
+  width: 85%;
+  margin-left: 10px;
+  height: 30px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.card .weight-reps-form label:first-child, .card .weight-reps-form label {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.card .weight-reps-form input {
+  height: 30px;
+  font-size: 15px;
+  width: 126px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.card .weight-reps-form input[placeholder="Enter weight"] {
+  margin-right: 15px;
+}
+
 #footer{
   position: fixed;
   width: 100%;
