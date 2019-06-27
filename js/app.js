@@ -171,7 +171,7 @@ function createSecondaryWeightsForm(totalNumber) {
     saveUpdatedUserInfo(getGlobalUsername(), userData);
     show(lookupUser(getGlobalUsername()));
   });
-
+  
 }
 function generateTrackNewEx() {
 
