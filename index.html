@@ -1,80 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./styles/reset.css">
-  <link rel="stylesheet" href="./styles/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Permanent+Marker&display=swap" rel="stylesheet">
-  <link rel="icon" href="./assets/favicon.ico" type ="image/x-icon">
-  <title>Gym Rat</title>
-</head>
-<body>
-  <header>
-    <img id="logo" src="assets/GymRatLogo.png" alt="Logo">
-    <nav>
-      <ul>
-        <li><a id="login" href="#">Login</a></li>
-        <!--Button for Modal - Modal Reference: https://www.w3schools.com/howto/howto_css_modals.asp -->
-        <li><a href="#" id="aboutUsButton">About</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GymRat</title>
 
-  <main>
-    <!-- Sign In -->
-    <section id="signin">
-      <h1>Welcome to <span>GymRat!</span></h1>
-      <h3>Tracking your cardio workouts has never been easier.</h3>
-      <hr>
-      <!-- Username Form -->
-      <form id="name">
-        <label for="name">Login</label>
-        <br>
-        <input type="text" name="name" placeholder="Enter your username" maxlength="20" required>
-        <br>
-        <button type="submit">Submit</button>
-      </form>
-    </section>
-    
-    <!--The Modal-->
-    <div id="aboutUsModal" class="modal">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/style.css">
 
-      <!--Modal Content-->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1>The Fantastic Four</h1>
-        <h2>Meet the Devs of <span> GymRat</span></h2>
-        <hr>
-        <ul id="aboutUsContent">
-          <li class="dev">Steve Grant</li>
-          <li><a target="_blank" href="https://github.com/Stevengrant">GitHub</a></li>
-          <li><img src="assets/Steve.png"></li>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Permanent+Marker&display=swap" rel="stylesheet">
 
-          <li class="dev">Melfi Perez</li>
-          <li><a target="_blank" href="https://github.com/perezm27">GitHub</a></li>
-          <li><img src="assets/Melfi.png"></li>
-
-          <li class="dev">Matt Stuhring</li>
-          <li><a target="_blank" href="https://github.com/mattstuhring">GitHub</a></li>
-          <li><img src="assets/Matt.png"></li>
-
-          <li class="dev">Joachen Busch</li>
-          <li><a target="_blank" href="https://github.com/JBusch2010">GitHub<a></a></li>
-          <li><img src="assets/Joachen.png"></li>
+    <!-- Favicon -->
+    <link rel="icon" href="./assets/favicon.ico" type ="image/x-icon">
+  </head>
+  <body>
+    <!-- Logo & Navigation -->
+    <header>
+      <img id="logo" src="assets/GymRatLogo.png" alt="Logo">
+      <nav>
+        <ul>
+          <li><a id="login" href="#">Login</a></li>
+          <!--Button for Modal - Modal Reference: https://www.w3schools.com/howto/howto_css_modals.asp -->
+          <li><a href="#" id="aboutUsButton">About</a></li>
         </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Sign In -->
+      <section id="signin">
+        <h1>Welcome to <span>GymRat!</span></h1>
+        <h3>Tracking your cardio workouts has never been easier.</h3>
+        <hr>
+        <!-- Username Form -->
+        <form id="name">
+          <label for="name">Login</label>
+          <br>
+          <input type="text" name="name" placeholder="Enter your username" maxlength="20" required>
+          <br>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+      
+      <!--About Us Modal-->
+      <div id="aboutUsModal" class="modal">
+
+        <!--Modal Content-->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h1>The Fantastic Four</h1>
+          <h2>Meet the Devs of <span> GymRat</span></h2>
+          <hr>
+          <ul id="aboutUsContent">
+            <li class="dev">Steve Grant</li>
+            <li><a target="_blank" href="https://github.com/Stevengrant">GitHub</a></li>
+            <li><img src="assets/Steve.png"></li>
+
+            <li class="dev">Melfi Perez</li>
+            <li><a target="_blank" href="https://github.com/perezm27">GitHub</a></li>
+            <li><img src="assets/Melfi.png"></li>
+
+            <li class="dev">Matt Stuhring</li>
+            <li><a target="_blank" href="https://github.com/mattstuhring">GitHub</a></li>
+            <li><img src="assets/Matt.png"></li>
+
+            <li class="dev">Joachen Busch</li>
+            <li><a target="_blank" href="https://github.com/JBusch2010">GitHub<a></a></li>
+            <li><img src="assets/Joachen.png"></li>
+          </ul>
+        </div>
       </div>
-    </div>
+      
+      <!-- Dashboard - User data is displayed -->
+      <section id='card-box'></section>
+    </main>
     
-    <!-- Dashboard -->
-    <section id='card-box'></section>
-  </main>
-  
-  <footer id="footer"><h2>GymRat 2019 &copy</h2></footer>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-<script src="./js/storage.js"></script>
-<script src="./js/charts.js"></script>
-<script src="./js/app.js"></script>
+    <!-- Footer -->
+    <footer id="footer"><h2>GymRat 2019 &copy</h2></footer>
+
+    <!-- JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/charts.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
 </html>
