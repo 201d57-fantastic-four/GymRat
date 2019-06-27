@@ -343,7 +343,7 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 function CardioElement(duration, distance) {
   this.duration = duration;
   this.distance = distance;
-  this.currentDateAndTime = currentDateAndTime();
+  this.currentDateAndTime = getCurrentDateAndTime();
   this.mph = Math.trunc(this.distance / this.duration);
   //update form
 }

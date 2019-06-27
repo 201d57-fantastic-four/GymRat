@@ -100,9 +100,7 @@ var charts = {
     let weightArr = [];
     let numOfRepsArr = [];
     let numOfSetsArr = [];
-    let day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    let setsColor = 'rgba(75, 192, 192, 0.3)';
-    let numOfRepsColor = 'rgba(153, 102, 255, 0.2)';
+    let day = [];
 
     for (let i = 0; i < historicalData.length; i++){
       for( let j = 0; j < historicalData[i].length; j++){
@@ -117,22 +115,36 @@ var charts = {
       var sets = weightArr.length;
       numOfSetsArr.push(sets);
     }
-    // if(numOfRepsArr.length > 7){
-    //   do {
-    //     weightArr.shift();
-    //     numOfRepsArr.shift();
-    //   // eslint-disable-next-line semi
-    //   } while (numOfRepsArr.length > 7)
-    // }
 
+    //Calculates weight * reps & stores it in acc array
+    let z = 0;
+    let acc = [];
+    for (let k = 0; k < historicalData.length; k++){
+      z = 0;
+      for (let l = 0; l < historicalData[k].length; l++){
+        z+= (historicalData[k][l].weight * historicalData[k][l].reps);
+        acc[k] = z;
+        day[k]= historicalData[k][l].currentDateAndTime;
+      }
+      acc[k] = acc[k]/100;
+    }
+    //ensures only 7 sets are displayed at a time on chart
+    if(acc.length > 7){
+      do {
+        acc.shift();
+        day.shift();
+      // eslint-disable-next-line semi
+      } while (acc.length > 7)
+    }
+    //our weight exercise chart properties
     var chartelem = chartbox.getContext('2d');
     var myChart = new Chart(chartelem, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: day,
         datasets: [{
           label: ['Weight'],
-          data: weightArr,
+          data: acc,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -150,29 +162,17 @@ var charts = {
             'rgba(255, 159, 64, 1)'
           ],
           borderWidth: 1,
-        },{
-          label: '# of Reps',
-          data: numOfRepsArr,
-          type: 'line',
-          backgroundColor: numOfRepsColor,
-          borderColor: numOfRepsColor,
-          borderWidth: 1,
-        },{
-          label: 'Number of Sets',
-          data: numOfSetsArr,
-          type: 'bubble',
-          backgroundColor: setsColor,
-          borderColor: setsColor,
-          borderWidth: 2,
-        }]
+        },
+
+      ]
       },
       options: {
         scales: {
           yAxes: [{
             ticks: {
-              max: 500,
+              max: 100,
               min : 0,
-              stepSize: 20,
+              stepSize: 10,
               beginAtZero: true
             }
           }]
