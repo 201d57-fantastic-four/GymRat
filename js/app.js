@@ -2,10 +2,7 @@
 'use strict';
 var cardBox = document.getElementById('card-box');
 var weightForm = null;
-function handleWeightSetsFormSub(e) {
-  e.preventDefault();
-  createSecondaryWeightsForm(parseInt(e.target[0].value));
-}
+
 function makeForm(key, uNumber) {
   weightForm = document.createElement('form');
   if (key === 'cardio-mph-distance') {
@@ -94,14 +91,16 @@ function makeForm(key, uNumber) {
     weightForm.appendChild(subButton);
   } else if (key === 'weight-sets-reps') {
     weightForm.id = uNumber;
+    weightForm.className = 'weight-form';
     let label = document.createElement('label');
+    label.id = 'sets-label';
     label.for = 'setsInput';
     label.innerText = 'Sets';
     let setsNumberInput = document.createElement('input');
     setsNumberInput.name = 'setsInput';
     setsNumberInput.min = 1;
     setsNumberInput.type = 'number';
-    setsNumberInput.placeholder = 'How Many Sets did you do?';
+    setsNumberInput.placeholder = 'How many sets are you going to do?';
     let nextFormButton = document.createElement('button');
     nextFormButton.innerText = 'Next';
     nextFormButton.type = 'submit';
@@ -112,15 +111,39 @@ function makeForm(key, uNumber) {
   }
   return weightForm;
 }
+//This is split up so we can remove the event listener later.
+function handleWeightSetsFormSub(e) {
+  e.preventDefault();
+  createSecondaryWeightsForm(parseInt(e.target[0].value));
+}
+
 function createSecondaryWeightsForm(totalNumber) {
   weightForm.removeEventListener('submit', handleWeightSetsFormSub);
   weightForm.innerHTML = '';
+  let removeOne= document.createElement('button');
+  removeOne.innerText= 'Remove one set';
+  removeOne.addEventListener('click', (e)=>{
+    e.preventDefault();
+    let newDraw = totalNumber - 1;
+    createSecondaryWeightsForm(newDraw);
+  });
+  let addOne= document.createElement('button');
+  addOne.innerText= 'Add one set';
+  addOne.addEventListener('click', (e)=>{
+    e.preventDefault();
+    let newDraw = totalNumber + 1;
+    createSecondaryWeightsForm(newDraw);
+  });
+  weightForm.className = 'weight-reps-form';
 
+  weightForm.appendChild(removeOne);
+  weightForm.appendChild(addOne);
+  weightForm.appendChild(document.createElement('hr'));
   for (let i = 0; i < totalNumber; i++) {
     //Weight inputs
     let weightInput = document.createElement('input');
     weightInput.name = `weightInput-${i}`;
-    weightInput.placeholder = 'weight';
+    weightInput.placeholder = 'Enter weight';
     weightInput.min = 1;
 
     let weightLabel = document.createElement('label');
@@ -129,7 +152,7 @@ function createSecondaryWeightsForm(totalNumber) {
 
     let repsInput = document.createElement('input');
     repsInput.name = `repsInput-${i}`;
-    repsInput.placeholder = 'reps';
+    repsInput.placeholder = 'Enter reps';
     repsInput.min = 1;
     let repsLabel = document.createElement('label');
     repsLabel.for = `repsInput-${i}`;
@@ -137,13 +160,15 @@ function createSecondaryWeightsForm(totalNumber) {
 
     let hrEl = document.createElement('hr');
 
-    weightForm.appendChild(weightInput);
     weightForm.appendChild(weightLabel);
-    weightForm.appendChild(repsInput);
+    weightForm.appendChild(weightInput);
     weightForm.appendChild(repsLabel);
+    weightForm.appendChild(repsInput);
     weightForm.appendChild(hrEl);
-
   }
+  
+
+
   let subButton = document.createElement('button');
   subButton.type = 'submit';
   subButton.innerText = 'Add';
@@ -184,15 +209,14 @@ function generateTrackNewEx() {
   profileImg.src = './assets/user.png';
   let profileWordsDiv = document.createElement('div');
   profileWordsDiv.id = 'words';
-  
+
 
   let profileName = document.createElement('p');
   profileName.textContent = `Hello, ${getGlobalUsername()}`;
   let title = document.createElement('h2');
   title.innerText = 'Track new exercise?';
   let button = document.createElement('button');
-  button.innerText= 'Yes!';
-  button.innerText = 'Track New.';
+  button.innerText= 'Yes';
   button.id = 'track-new-exercise-type-button';
   profileDiv.appendChild(profileImg);
 
@@ -200,7 +224,7 @@ function generateTrackNewEx() {
   profileWordsDiv.appendChild(title);
   profileWordsDiv.appendChild(button);
   profileDiv.appendChild(profileWordsDiv);
-  
+
   card.appendChild(profileDiv);
   cardBox.appendChild(card);
   button.addEventListener('click', () => {
