@@ -1,4 +1,5 @@
 'use strict';
+//Cardio Workout Chart
 // eslint-disable-next-line no-unused-vars
 var charts = {
   'cardio-mph-distance': (chartbox, historicalData) => {
