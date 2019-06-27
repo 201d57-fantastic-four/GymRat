@@ -21,12 +21,12 @@ var charts = {
       days[i] = historicalData[i].currentDateAndTime;
     }
 
-    if(mphArr.length > 7){
+    if (mphArr.length > 7) {
       do {
         distanceArr.shift();
         mphArr.shift();
         days.shift();
-      // eslint-disable-next-line semi
+        // eslint-disable-next-line semi
       } while (mphArr.length > 7)
     }
 
@@ -57,14 +57,14 @@ var charts = {
             'rgba(255, 0, 96, 0.2)'
           ],
           borderWidth: 1,
-        },{
+        }, {
           label: 'MPH',
           data: mphArr,
           type: 'line',
           backgroundColor: mphColor,
           borderColor: mphBorder,
           borderWidth: 1,
-        },{
+        }, {
           label: 'Duration',
           data: durationArr,
           type: 'bubble',
@@ -78,7 +78,7 @@ var charts = {
           yAxes: [{
             ticks: {
               max: 10,
-              min : 0,
+              min: 0,
               stepSize: 1,
               beginAtZero: true
             }
@@ -86,7 +86,7 @@ var charts = {
           xAxes: [{
             ticks: {
               max: 7,
-              min : 7,
+              min: 7,
               stepSize: 1,
               beginAtZero: true
             }
@@ -96,38 +96,27 @@ var charts = {
     });
   },
   //Draws our Weights Chart
-  'weight-sets-reps': (chartbox, historicalData) =>{
-    let weightArr = [];
-    let numOfRepsArr = [];
+  'weight-sets-reps': (chartbox, historicalData) => {
     let day = [];
-
-    for (let i = 0; i < historicalData.length; i++){
-      for( let j = 0; j < historicalData[i].length; j++){
-        let hdElem = historicalData[i][j];
-        numOfRepsArr.push(hdElem.reps);
-        weightArr.push(hdElem.weight);
-        console.log(weightArr);
-      }
-    }
-
     //Calculates weight * reps & stores it in acc array
     let z = 0;
     let acc = [];
-    for (let k = 0; k < historicalData.length; k++){
+    for (let k = 0; k < historicalData.length; k++) {
       z = 0;
-      for (let l = 0; l < historicalData[k].length; l++){
-        z+= (historicalData[k][l].weight * historicalData[k][l].reps);
+      for (let l = 0; l < historicalData[k].length; l++) {
+
+        z += (historicalData[k][l].weight * historicalData[k][l].reps);
         acc[k] = z;
-        day[k]= historicalData[k][l].currentDateAndTime;
+        day[k] = historicalData[k][l].currentDateAndTime;
       }
-      acc[k] = acc[k]/100;
+      acc[k] = acc[k] / 100;
     }
     //ensures only 7 sets are displayed at a time on chart
-    if(acc.length > 7){
+    if (acc.length > 7) {
       do {
         acc.shift();
         day.shift();
-      // eslint-disable-next-line semi
+        // eslint-disable-next-line semi
       } while (acc.length > 7)
     }
     //our weight exercise chart properties
@@ -157,14 +146,14 @@ var charts = {
           ],
           borderWidth: 1,
         },
-      ]
+        ]
       },
       options: {
         scales: {
           yAxes: [{
             ticks: {
               max: 100,
-              min : 0,
+              min: 0,
               stepSize: 10,
               beginAtZero: true
             }
@@ -173,4 +162,4 @@ var charts = {
       }
     });
   },
-  };
+};
