@@ -317,6 +317,14 @@ main {
   width: 100%;
 }
 
+#add-set, #remove-set {
+  width: 45%;
+}
+
+#remove-set {
+  margin-right: 35px;
+}
+
 .weight-form #sets-label {
   text-decoration: none;
 }
