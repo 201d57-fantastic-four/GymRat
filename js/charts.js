@@ -31,6 +31,7 @@ var charts = {
     }
 
     var chartelem = chartbox.getContext('2d');
+    // eslint-disable-next-line
     var myChart = new Chart(chartelem, {
       type: 'bar',
       data: {
@@ -132,12 +133,13 @@ var charts = {
     }
     //our weight exercise chart properties
     var chartelem = chartbox.getContext('2d');
+    // eslint-disable-next-line
     var myChart = new Chart(chartelem, {
       type: 'line',
       data: {
         labels: day,
         datasets: [{
-          label: ['Weight'],
+          label: ['Swol Index'],
           data: acc,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -157,7 +159,7 @@ var charts = {
           ],
           borderWidth: 1,
         },
-      ]
+        ]
       },
       options: {
         scales: {
@@ -173,4 +175,4 @@ var charts = {
       }
     });
   },
-  };
+};
