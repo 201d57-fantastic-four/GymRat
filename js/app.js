@@ -324,6 +324,13 @@ var drawCard = function (exerciseObject, parentEl, uNumber) {
   parentEl.appendChild(card);
 };
 
+function getCurrentDateAndTime() {
+  var today = new Date();
+  var date = `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
+  var time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+  return `${date} ${time}`;
+}
+
 //Exercise Object Constructor
 // eslint-disable-next-line no-unused-vars
 function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', historicalData = []) {
@@ -336,7 +343,8 @@ function ExerciseObject(exerciseType, chartType = 'cardio-mph-distance', histori
 function CardioElement(duration, distance) {
   this.duration = duration;
   this.distance = distance;
-  this.mph = this.distance / this.duration;
+  this.currentDateAndTime = currentDateAndTime();
+  this.mph = Math.trunc(this.distance / this.duration);
   //update form
 }
 
@@ -380,6 +388,7 @@ function show(arr) {
 function WeightReps(weight, reps) {
   this.weight = weight;
   this.reps = reps;
+  this.currentDateAndTime = getCurrentDateAndTime();
 }
 
 nameForm.addEventListener('submit', (e) => {
