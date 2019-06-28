@@ -42,7 +42,7 @@ header > nav > ul > li > a:hover {
 }
 
 main {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 #signin {
@@ -58,12 +58,12 @@ main {
 }
 
 #signin h1 {
-  font-size: 30px;
+  font-size: 34px;
   padding: 20px;
 }
 
 #signin h1 span {
-  font-size: 50px;
+  font-size: 60px;
   font-family: 'Permanent Marker', cursive;
 }
 
@@ -76,12 +76,21 @@ main {
   border: 1px solid rgb(55,114,255,0.4);
 }
 
+#signin p {
+  color: #FF0060;
+  font-size: 11px;
+}
+
 #name {
-  height: 160px;
+  height: 134px;
   width: 300px;
-  margin-top: 35px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
+  background-color: #eee;
+  padding: 20px 80px;
+  border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 #name label {
