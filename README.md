@@ -38,6 +38,9 @@ Gym
 By Sophia Bai, US 
 https://thenounproject.com/search/?q=gym&i=1921615
 
+Background Image
+https://pngtree.com/freebackground/running-man-silhouette-sky-clouds_138343.html
+
 ## License
 Please see License doc for more details. 
 
